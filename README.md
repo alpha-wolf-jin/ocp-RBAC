@@ -225,3 +225,79 @@ Click `Create binding` button
 
 ![Once Login Azure portal](images/ocp-RBAC-04.png)
 ![Once Login Azure portal](images/ocp-RBAC-05.png)
+
+
+**Verify**
+```
+$ oc whoami
+devadmin
+
+$ oc project
+Using project "project-01" on server "https://api.aro.example.opentlc.com:6443".
+
+$ oc new-project project-02
+Error from server (Forbidden): You may not request a new project via this API.
+
+$ oc login -u devuder -p redhat
+
+Login successful.
+
+You have one project on this server: "project-01"
+
+Using project "project-01".
+
+$ echo hello-world-01 >index-01.html
+
+$ oc create configmap index-html --from-file=index.html=./index-01.html
+
+$ vim deploy-http.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web
+    app.kubernetes.io/component: web
+    app.kubernetes.io/instance: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: web
+  template:
+    metadata:
+      labels:
+        deployment: web
+    spec:
+      containers:
+      - image: registry.redhat.io/rhel8/httpd-24:1-161.1638356842
+        name: web
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - name: index-html
+          mountPath: /var/www/html/index.html
+          readOnly: true
+          subPath: index.html
+      volumes:
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: index.html
+            path: index.html
+          name: index-html
+        name: index-html
+
+
+$ oc apply -f ./deploy-http.yaml 
+
+$ oc get pod -o wide
+NAME                   READY   STATUS    RESTARTS   AGE   IP            NODE                        NOMINATED NODE   READINESS GATES
+web-68667fc959-xmjj4   1/1     Running   0          60s   10.128.2.39   aro-pcnpf-worker-eastus-3   <none>           <none>
+
+
+```
