@@ -227,7 +227,7 @@ Click `Create binding` button
 ![Once Login Azure portal](images/ocp-RBAC-05.png)
 
 
-**Verify**
+**Verify project eidt user can deploy POD on right node**
 ```
 $ oc whoami
 devadmin
