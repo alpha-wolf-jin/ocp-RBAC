@@ -192,7 +192,7 @@ $ oc apply -f project.yaml
 
 # Operate from We UI to add Httppwd users
 
-Selecelt `openshift config` project
+Select `openshift config` project
 
 Click `Secrets` under `Workloads`
 
@@ -205,3 +205,9 @@ $ oc login -u devuder -p redhat
 
 $ oc login -u devadmin -p redhat
 ```
+
+Click `RoleBindlings` under `User Management`
+
+**Assgine Project Admin role**
+![Once Login Azure portal](images/ocp-RBAC-02.png)
+![Once Login Azure portal](images/ocp-RBAC-03.png)
