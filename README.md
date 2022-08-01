@@ -194,7 +194,7 @@ $ oc apply -f project.yaml
 
 Selecelt `openshift config` project
 
-Click 'Secrets' under 'Workloads'
+Click `Secrets` under `Workloads`
 
 Edit secret 'httpass-secret`
 ![Once Login Azure portal](images/ocp-RBAC-01.png)
