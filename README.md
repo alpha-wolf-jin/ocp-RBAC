@@ -190,4 +190,6 @@ $ oc apply -f project.yaml
 
 ```
 
+### Click the resouce group `openenv-g96kt`
+![Once Login Azure portal](images/ocp-RBAC-01.png)
 
