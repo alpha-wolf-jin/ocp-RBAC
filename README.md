@@ -119,4 +119,75 @@ ocpuser
 $ oc new-project test
 Error from server (Forbidden): You may not request a new project via this API.
 
+$ oc login -u ocpadmin -p redhat
+
 ```
+
+# Add http user
+
+```
+$ htpasswd -B -b ./users.htpasswd devadmin redhat
+
+$ htpasswd -B -b ./users.htpasswd devuder redhat
+
+$ cat ./users.htpasswd
+ocpadmin:$2y$05$HnvtT/5xjD1tpe8fp6jOteMi6MycK3n/QjNuaG24m6.zKbGtNxXKq
+ocpuser:$2y$05$ZBeDNSU4h0O62QCnU5GMpOEY2sepNV/H8sieqzlDp5GI2pWIAW03S
+devadmin:$2y$05$6Re9mPI7JoMzOsb..NbkxeEp3cGoXnPRCGQARGG/1vgdmWcoaOrMq
+devuder:$2y$05$EOnmnl8GEJvt6xkzoVz5uOc2C8J7HMR9mT/Axtyd/jENHhqOHgy6W
+
+```
+
+# Lable Taint node
+
+```
+$ oc get node
+NAME                        STATUS   ROLES    AGE    VERSION
+aro-pcnpf-master-0          Ready    master   2d2h   v1.23.5+9ce5071
+aro-pcnpf-master-1          Ready    master   2d2h   v1.23.5+9ce5071
+aro-pcnpf-master-2          Ready    master   2d2h   v1.23.5+9ce5071
+aro-pcnpf-worker-eastus-1   Ready    worker   2d     v1.23.5+9ce5071
+aro-pcnpf-worker-eastus-2   Ready    worker   2d     v1.23.5+9ce5071
+aro-pcnpf-worker-eastus-3   Ready    worker   2d     v1.23.5+9ce5071
+
+$ oc label node aro-pcnpf-worker-eastus-3 dev="true"
+
+$ oc adm taint node aro-pcnpf-worker-eastus-3 dev="true":NoSchedule
+
+$ oc describe node aro-pcnpf-worker-eastus-3
+Name:               aro-pcnpf-worker-eastus-3
+Roles:              worker
+Labels:             beta.kubernetes.io/arch=amd64
+                    dev=true
+...
+Taints:             dev=true:NoSchedule
+...
+
+```
+
+# Operate from We UI
+
+```
+$ oc whoami --show-console
+https://console-openshift-console.apps.aro.example.opentlc.com
+
+$ oc whoami
+ocpadmin
+
+$ cat project.yaml 
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: project-01
+  annotations:
+    openshift.io/node-selector: 'dev=true'
+    scheduler.alpha.kubernetes.io/defaultTolerations: >-
+      [{"operator": "Equal", "effect": "NoSchedule", "key":
+              "dev", "value": "true"}
+      ]
+
+$ oc apply -f project.yaml 
+
+```
+
+

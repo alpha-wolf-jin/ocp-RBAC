@@ -1,0 +1,11 @@
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: project-01
+  annotations:
+    openshift.io/node-selector: 'dev=true'
+    scheduler.alpha.kubernetes.io/defaultTolerations: >-
+      [{"operator": "Equal", "effect": "NoSchedule", "key":
+              "dev", "value": "true"}
+      ]
+
