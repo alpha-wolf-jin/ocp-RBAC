@@ -206,8 +206,12 @@ $ oc login -u devuder -p redhat
 $ oc login -u devadmin -p redhat
 ```
 
-Click `RoleBindlings` under `User Management`
-
 **Assgine Project Admin role**
+
+Click `RoleBindlings` under `User Management` in left window
+
+Click `Create binding` button
+
+
 ![Once Login Azure portal](images/ocp-RBAC-02.png)
 ![Once Login Azure portal](images/ocp-RBAC-03.png)
