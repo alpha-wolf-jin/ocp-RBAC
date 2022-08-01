@@ -199,3 +199,9 @@ Click `Secrets` under `Workloads`
 Edit secret 'httpass-secret`
 ![Once Login Azure portal](images/ocp-RBAC-01.png)
 
+**Verify newly adding users**
+```
+$ oc login -u devuder -p redhat
+
+$ oc login -u devadmin -p redhat
+```
