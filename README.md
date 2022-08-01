@@ -165,7 +165,7 @@ Taints:             dev=true:NoSchedule
 
 ```
 
-# Operate from We UI
+# Create Project with node-selector & Tolerations
 
 ```
 $ oc whoami --show-console
@@ -190,6 +190,12 @@ $ oc apply -f project.yaml
 
 ```
 
-### Click the resouce group `openenv-g96kt`
+# Operate from We UI to add Httppwd users
+
+Selecelt `openshift config` project
+
+Click 'Secrets' under 'Workloads'
+
+Edit secret 'httpass-secret`
 ![Once Login Azure portal](images/ocp-RBAC-01.png)
 
