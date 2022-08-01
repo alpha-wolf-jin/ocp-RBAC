@@ -215,3 +215,13 @@ Click `Create binding` button
 
 ![Once Login Azure portal](images/ocp-RBAC-02.png)
 ![Once Login Azure portal](images/ocp-RBAC-03.png)
+
+**Assgine Project edit role**
+
+Click `RoleBindlings` under `User Management` in left window
+
+Click `Create binding` button
+
+
+![Once Login Azure portal](images/ocp-RBAC-04.png)
+![Once Login Azure portal](images/ocp-RBAC-05.png)
